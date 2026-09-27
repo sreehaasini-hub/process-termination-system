@@ -1,0 +1,18 @@
+ALGORITHM: PROCESS TERMINATION MESSAGE SYSTEM
+
+1. Start the program.
+2. Display the Parent Process ID.
+3. Create three child processes using fork().
+4. Assign a different task to each child process.
+5. Child 1 performs a calculation task and exits normally with status 10.
+6. Child 2 performs a file processing task and exits normally with status 20.
+7. Child 3 performs a monitoring task and terminates using SIGTERM.
+8. The parent process waits for each child using wait().
+9. Obtain the termination status of the child process.
+10. Check whether the child terminated normally using WIFEXITED().
+11. If normally terminated, display the PID and exit status using WEXITSTATUS().
+12. Check whether the child was terminated by a signal using WIFSIGNALED().
+13. If terminated by a signal, display the PID and signal number using WTERMSIG().
+14. Repeat until all three child processes are collected.
+15. Display that all child processes have been collected.
+16. End the program.
