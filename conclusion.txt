@@ -1,0 +1,7 @@
+CONCLUSION
+
+The Process Termination Message System successfully demonstrates how a parent process can monitor and collect the termination status of multiple child processes.
+
+The program uses fork() to create child processes and wait() to collect their termination information. It identifies both normally terminated and abnormally terminated child processes. The program also displays the PID, exit status, and signal responsible for termination.
+
+By collecting the termination status of all child processes, the program prevents zombie processes and provides meaningful termination information to the parent process.
