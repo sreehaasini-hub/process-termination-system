@@ -1,0 +1,21 @@
+PROJECT OBJECTIVES
+
+1. To create multiple child processes using fork().
+
+2. To assign different tasks to each child process.
+
+3. To monitor the termination of child processes.
+
+4. To use wait() for collecting child termination status.
+
+5. To identify normally terminated child processes.
+
+6. To identify child processes terminated by signals.
+
+7. To display the PID of the terminated child process.
+
+8. To display the exit status of normally terminated processes.
+
+9. To report the signal responsible for abnormal termination.
+
+10. To prevent terminated child processes from becoming zombie processes.
