@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 int main()
 {
@@ -9,7 +10,8 @@ int main()
     int status;
     pid_t pid;
 
-    printf("Parent Process PID: %d\n", getpid());
+    printf("Parent Process Started\n");
+    printf("Parent PID: %d\n\n", getpid());
 
     for (i = 1; i <= 3; i++)
     {
@@ -23,12 +25,37 @@ int main()
 
         if (pid == 0)
         {
-            printf("Child %d created. PID: %d\n", i, getpid());
+            if (i == 1)
+            {
+                printf("Child 1 (PID %d): Performing calculation task...\n",
+                       getpid());
 
-            sleep(i);
+                sleep(2);
 
-            printf("Child %d terminating normally.\n", i);
-            exit(i * 10);
+                printf("Child 1: Task completed successfully.\n");
+                exit(10);
+            }
+            else if (i == 2)
+            {
+                printf("Child 2 (PID %d): Performing file processing task...\n",
+                       getpid());
+
+                sleep(3);
+
+                printf("Child 2: Task completed successfully.\n");
+                exit(20);
+            }
+            else
+            {
+                printf("Child 3 (PID %d): Performing monitoring task...\n",
+                       getpid());
+
+                sleep(1);
+
+                printf("Child 3: Terminating using SIGTERM.\n");
+
+                kill(getpid(), SIGTERM);
+            }
         }
     }
 
@@ -36,18 +63,29 @@ int main()
     {
         pid = wait(&status);
 
+        if (pid == -1)
+        {
+            perror("wait failed");
+            exit(1);
+        }
+
+        printf("\n--- Child Termination Detected ---\n");
+        printf("Terminated Child PID: %d\n", pid);
+
         if (WIFEXITED(status))
         {
-            printf("Parent detected Child PID %d terminated normally with exit status %d.\n",
-                   pid, WEXITSTATUS(status));
+            printf("Termination Type: Normal\n");
+            printf("Exit Status: %d\n", WEXITSTATUS(status));
         }
-        else
+        else if (WIFSIGNALED(status))
         {
-            printf("Parent detected Child PID %d terminated abnormally.\n", pid);
+            printf("Termination Type: Abnormal\n");
+            printf("Terminated by Signal: %d\n", WTERMSIG(status));
         }
     }
 
-    printf("All child processes have terminated.\n");
+    printf("\nAll child processes have been collected.\n");
+    printf("No zombie processes remain.\n");
 
     return 0;
 }
