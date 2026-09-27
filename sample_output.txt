@@ -1,0 +1,32 @@
+PROCESS TERMINATION MESSAGE SYSTEM - SAMPLE OUTPUT
+
+Parent Process Started
+Parent PID: 3307
+
+Child 1 (PID 3311): Performing calculation task...
+Child 2 (PID 3312): Performing file processing task...
+Child 3 (PID 3313): Performing monitoring task...
+
+Child 3: Terminating using SIGTERM.
+
+--- Child Termination Detected ---
+Terminated Child PID: 3313
+Termination Type: Abnormal
+Terminated by Signal: 15
+
+Child 1: Task completed successfully.
+
+--- Child Termination Detected ---
+Terminated Child PID: 3311
+Termination Type: Normal
+Exit Status: 10
+
+Child 2: Task completed successfully.
+
+--- Child Termination Detected ---
+Terminated Child PID: 3312
+Termination Type: Normal
+Exit Status: 20
+
+All child processes have been collected.
+No zombie processes remain.
